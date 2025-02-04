@@ -2,49 +2,52 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use HasRoles; // لإضافة دعم الأدوار والأذونات
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
         'phone',
         'password',
-        'role', 
+        'city',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Get the individual client associated with the user.
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function individualClient()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasOne(IndividualClient::class);
+    }
+
+    /**
+     * Get the company client associated with the user.
+     */
+    public function companyClient()
+    {
+        return $this->hasOne(CompanyClient::class);
+    }
+
+    /**
+     * Get the inspector associated with the user.
+     */
+    public function inspector()
+    {
+        return $this->hasOne(Inspector::class);
+    }
+
+    /**
+     * Get the evaluation company associated with the user.
+     */
+    public function evaluationCompany()
+    {
+        return $this->hasOne(EvaluationCompany::class);
     }
 }

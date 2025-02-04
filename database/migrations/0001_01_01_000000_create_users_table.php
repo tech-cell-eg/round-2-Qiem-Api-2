@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
+            $table->string('phone')->nullable(); // رقم الجوال
             $table->string('password');
-            $table->enum('role', ['inspector','evaluation_company','client']);
+            $table->string('city')->nullable(); // المدينة
+            $table->rememberToken();
             $table->timestamps();
         });
 
