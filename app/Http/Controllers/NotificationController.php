@@ -5,29 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\customNotification;
+use App\Http\Requests\SendNotificationRequest;
+use App\Traits\ApiResponseTrait;
 
 class NotificationController extends Controller
 {
+    use ApiResponseTrait;
     //to send notification
-    public function sendNotification(Request $request){
-        //Validate the incoming request data
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'title' => 'required|string|max:255',
-            'message' => 'required|string'
-        ]);
-
+    public function sendNotification(SendNotificationRequest $request){
         // Find the user by ID
         $user = User::find($request->input('user_id'));
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return $this->errorResponse('User not found', 404);
         }
 
         // Send the notification
         $user->notify(new CustomNotification($request->input('title'), $request->input('message')));
 
-        return response()->json(['success' => 'Notification sent successfully'], 200);
+        return $this->successResponse(null,'Notification sent successfully');
     }
 
     //to get all notification
@@ -35,7 +31,7 @@ class NotificationController extends Controller
     {
         $user = User::find($request->input('user_id'));
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return $this->errorResponse('User not found',404);
         }
 
         //This line fetches all notifications that have been sent to the user
@@ -43,24 +39,33 @@ class NotificationController extends Controller
 
         //Check whether there are notifications or not
         if ($notifications->isEmpty()) {
-            return response()->json(['message' => 'No notifications available'], 200);
+            return $this->successResponse([],'No notifications available');
         }
-        return response()->json($notifications);
+        return $this->successResponse([
+            'data' => $notifications->items(),
+            'pagination' => [
+                'total' => $notifications->total(),
+                'per_page' => $notifications->perPage(),
+                'current_page' => $notifications->currentPage(),
+                'last_page' => $notifications->lastPage(),
+                'next_page_url' => $notifications->nextPageUrl(),
+                'prev_page_url' => $notifications->previousPageUrl(),
+            ]
+            ]);
     }
 
     //mark as read
     public function markAsRead(Request $request){
         $user = User::find($request->input('user_id'));
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return $this->errorResponse('User not found', 404);
         }
         //Check if there are any unread notifications
         if($user->unreadNotifications->count()===0){
-            return response()->json(['message'=>'No unread notification to mark as read'],200);
+            return $this->successResponse([],'No unread notification to mark as read');
         }
         //to put a mark as read
         $user->unreadNotifications->markAsRead();
-        return response()->json(['success' => 'Notifications marked as read']);
-    }
+        $this->successResponse(null, 'Notifications marked as read');    }
 
 }
