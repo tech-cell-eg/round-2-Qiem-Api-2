@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('offer', function (Blueprint $table) {
+        Schema::create('individual_clients', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('copmanies_id')->constrained('companies')->onDelete('cascade'); 
-            $table->string('details');
-            $table->integer('amount');
-            $table->string('file');
-            $table->enum('status' , ['قبول' , 'رفض']);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // علاقة مع جدول users
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('offer');
+        Schema::dropIfExists('individual_clients');
     }
 };
