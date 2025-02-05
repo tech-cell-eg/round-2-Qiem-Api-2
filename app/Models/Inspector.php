@@ -14,6 +14,10 @@ class Inspector extends Model
         'inspection_fee',
         'national_id',
         'certificate',
+        'province', // المحافظة
+        'area',     // المنطقة
+        'balance', // رصيد الحساب
+        'outstanding_balance', // الرصيد المستحق
     ];
 
     /**
