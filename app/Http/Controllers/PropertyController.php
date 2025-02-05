@@ -34,7 +34,20 @@ class PropertyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $property = Property::find($id);
+
+        if (!$property) {
+            return response()->json([
+                'success' => false,
+                'message' => 'العقار غير موجود'
+            ], 404);
+        }
+
+        // إرجاع تفاصيل العقار
+        return response()->json([
+            'success' => true,
+            'property' => $property
+        ]);
     }
 
     /**
