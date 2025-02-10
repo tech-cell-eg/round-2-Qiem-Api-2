@@ -13,4 +13,9 @@ Route::controller(\App\Http\Controllers\API\AuthController::class)->group(functi
     Route::post('/login', 'login');
     Route::post('/register', 'register');
 });
+
+
+//register individual client
 Route::post('/auth/individual-client/register', [RegisterController::class, 'register']);
+//rerister evaluation company
+Route::post('/auth/register/evaluation-company', [RegisterController::class, 'register']);
