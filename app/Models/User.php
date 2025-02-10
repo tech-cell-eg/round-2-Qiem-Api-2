@@ -51,4 +51,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function realEstates()
+    {
+        return $this->hasMany(Real_estate::class);
+    }
 }
