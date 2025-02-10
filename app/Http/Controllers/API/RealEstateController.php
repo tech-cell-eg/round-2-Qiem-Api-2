@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Validator;
 
 class RealEstateController extends Controller
 {
+    public function showAllRealEstates(){
+        $realEstates = Real_estate::where('client_id',auth()->user()->id)->get();
+        if ($realEstates) {
+            return ApiResponse::sendResponse(Response::HTTP_OK, 'All real estates', Real_estateResource::collection($realEstates));
+        }
+        return ApiResponse::sendResponse(Response::HTTP_OK, 'No real estates yet');
+    }
     public function store(RealEstateRequest $request)
     {
         $validatedData = $request->validated();

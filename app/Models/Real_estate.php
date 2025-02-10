@@ -21,4 +21,8 @@ class Real_estate extends Model
     public function client(){
         return $this->belongsTo(User::class);
     }
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
+    }
 }
