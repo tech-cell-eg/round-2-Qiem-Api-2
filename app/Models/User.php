@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory,Notifiable,HasApiTokens;
 
 
 
@@ -48,13 +48,17 @@ class User extends Authenticatable
         ];
     }
     public function individualClient()
-{
-    return $this->hasOne(IndividualClient::class);
-}
+    {
+        return $this->hasOne(IndividualClient::class);
+    }
 
-public function evaluationCompany()
-{
-    return $this->hasOne(EvaluationCompany::class);
-}
+    public function evaluationCompany()
+    {
+        return $this->hasOne(EvaluationCompany::class);
+    }
+    public function inspector()
+    {
+        return $this->hasOne(Inspector::class, 'user_id');
+    }
 }
 
