@@ -14,7 +14,7 @@ Route::controller(\App\Http\Controllers\API\AuthController::class)->group(functi
 
 Route::middleware(['auth:sanctum','role:client'])->group( function () {
     Route::controller(\App\Http\Controllers\API\RealEstateController::class)->prefix('real_estate')->group(function () {
-       Route::post('/create', 'create');
+       Route::post('/create', 'store');
        Route::delete('/delete/{id}/{client_id}', 'delete');
        Route::put('/update/{id}/{client_id}', 'update');
     });
