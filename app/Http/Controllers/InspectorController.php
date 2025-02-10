@@ -10,7 +10,7 @@ class InspectorController extends Controller
 {
     use ApiResponseTrait;
     //Show inspector's balance and outstanding balance.
-    public function showBalance($id){
+    public function show($id){
         $inspector=Inspector::find($id);
         if(!$inspector){
             return $this->errorResponse('Inspector not found',404);

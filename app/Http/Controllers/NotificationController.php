@@ -12,7 +12,7 @@ class NotificationController extends Controller
 {
     use ApiResponseTrait;
     //to send notification
-    public function sendNotification(SendNotificationRequest $request){
+    public function send(SendNotificationRequest $request){
         // Find the user by ID
         $user = User::find($request->input('user_id'));
 
@@ -27,7 +27,7 @@ class NotificationController extends Controller
     }
 
     //to get all notification
-    public function getNotifications(Request $request)
+    public function index(Request $request)
     {
         $user = User::find($request->input('user_id'));
         if (!$user) {
