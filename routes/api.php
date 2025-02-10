@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
 
 
 Route::get('/user', function (Request $request) {
@@ -12,3 +13,4 @@ Route::controller(\App\Http\Controllers\API\AuthController::class)->group(functi
     Route::post('/login', 'login');
     Route::post('/register', 'register');
 });
+Route::post('/auth/individual-client/register', [RegisterController::class, 'register']);
