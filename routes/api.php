@@ -22,3 +22,10 @@ Route::post('/auth/individual-client/register', [RegisterController::class, 'reg
 Route::post('/auth/register/evaluation-company', [RegisterController::class, 'register']);
 //Register inspector
 Route::post('/auth/register-inspector', [InspectorRegisterController::class, 'register']);
+Route::middleware(['auth:sanctum','role:client'])->group( function () {
+    Route::controller(\App\Http\Controllers\API\RealEstateController::class)->prefix('real_estate')->group(function () {
+       Route::post('/create', 'store');
+       Route::delete('/delete/{id}/{client_id}', 'delete');
+       Route::put('/update/{id}/{client_id}', 'update');
+    });
+});

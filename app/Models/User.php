@@ -59,6 +59,10 @@ class User extends Authenticatable
     public function inspector()
     {
         return $this->hasOne(Inspector::class, 'user_id');
+
+    public function realEstates()
+    {
+        return $this->hasMany(Real_estate::class);
     }
 }
 
