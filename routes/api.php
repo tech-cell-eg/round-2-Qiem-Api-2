@@ -28,7 +28,5 @@ Route::middleware(['auth:sanctum','role:client'])->group( function () {
         Route::get('/allOffers', 'index');
         Route::get('/offer/{id}', 'show');
         Route::put('updateOfferStatus/{id}','updateOfferStatus');
-        Route::get('/acceptedOffers', 'showAcceptedOffers');
-        Route::get('/refusedOffers', 'showRefusedOffers');
     });
 });
