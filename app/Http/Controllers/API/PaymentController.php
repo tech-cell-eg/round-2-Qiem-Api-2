@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 
 class PaymentController extends Controller
 {
-    public function paidRealEstate()
+    public function index()
     {
         $real_estate_ids = Real_estate::where('client_id', auth()->user()->id)->pluck('id');
 

@@ -12,16 +12,20 @@ use Illuminate\Http\Response;
 
 class OfferController extends Controller
 {
-    public function showAllOffers()
+    public function index(Request $request)
     {
         $real_estate_ids = Real_estate::where('client_id', auth()->user()->id)->pluck('id');
 
-        $accepted = Offer::whereIn('real_estate_id', $real_estate_ids)->get(); // Use whereIn()
+        $status = $request->query('status'); // Get status from request (optional)
 
-        if ($accepted->isNotEmpty()) {
-            return ApiResponse::sendResponse(Response::HTTP_OK, 'All offers', OfferResource::collection($accepted));
+        $offers = Offer::whereIn('real_estate_id', $real_estate_ids)
+            ->filterByStatus($status) // Apply the status filter dynamically
+            ->get();
+
+        if ($offers->isNotEmpty()) {
+            return ApiResponse::sendResponse(Response::HTTP_OK, 'Filtered offers', OfferResource::collection($offers));
         } else {
-            return ApiResponse::sendResponse(Response::HTTP_NOT_FOUND, 'No offers yet');
+            return ApiResponse::sendResponse(Response::HTTP_NOT_FOUND, 'No offers found');
         }
     }
 
@@ -45,7 +49,7 @@ class OfferController extends Controller
         return ApiResponse::sendResponse(Response::HTTP_OK, 'Offer status updated successfully', new OfferResource($offer));
     }
 
-    public function showOffer($id)
+    public function show($id)
     {
 //        $real_estate_ids = Real_estate::where('client_id', auth()->user()->id)->pluck('id');
 
@@ -62,7 +66,7 @@ class OfferController extends Controller
     {
         $real_estate_ids = Real_estate::where('client_id', auth()->user()->id)->pluck('id');
 
-        $accepted = Offer::where('status', 'acceptance')->whereIn('real_estate_id', $real_estate_ids)->get(); // Use whereIn()
+        $accepted = Offer::showAcceptedOffers()->whereIn('real_estate_id', $real_estate_ids)->get(); // Use whereIn()
 
         if ($accepted->isNotEmpty()) {
             return ApiResponse::sendResponse(Response::HTTP_OK, 'All offers accepted', OfferResource::collection($accepted));
