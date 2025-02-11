@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
 
-    use HasFactory, Notifiable,HasApiTokens;
+    use HasFactory,Notifiable,HasApiTokens;
     use HasRoles;
 
     protected $fillable = [
@@ -42,21 +42,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(CompanyClient::class);
     }
-    public function individualClient()
-    {
-        return $this->hasOne(IndividualClient::class);
-    }
-
-{
-    return $this->hasOne(IndividualClient::class);
 
     /**
      * Get the inspector associated with the user.
      */
-    public function inspector()
-    {
-        return $this->hasOne(Inspector::class);
-    }
 
     /**
      * Get the evaluation company associated with the user.

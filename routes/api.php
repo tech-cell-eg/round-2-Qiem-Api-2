@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterControlle
 
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Api\authentication\EditProfile\EditProfileController;
 use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\API\RealEstateController;
@@ -40,6 +41,11 @@ Route::post('/auth/individual-client/register', [RegisterController::class, 'reg
 Route::post('/register/evaluation-company', [EvaluationCompanyRegisterController::class, 'register']);
 //Register inspector
 Route::post('/auth/register-inspector', [InspectorRegisterController::class, 'register']);
+//Eitd Profile & Edit Password
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/update-profile', [EditProfileController::class, 'updateProfile']);
+    Route::post('/update-password', [EditProfileController::class, 'updatePassword']);
+});
 
 Route::middleware(['auth:sanctum','role:client'])->group( function () {
     Route::controller(\App\Http\Controllers\API\RealEstateController::class)->prefix('real_estate')->group(function () {

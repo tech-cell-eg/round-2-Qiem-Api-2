@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EvaluationCompanyRegisterRequest;
 use App\Models\User;
 use App\Models\EvaluationCompany;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class EvaluationCompanyRegisterController extends Controller
 {
-    public function register(EvaluationCompanyRegisterRequest $request)
+    public function register(Request $request)
     {
         // Create user
         $user = User::create([
