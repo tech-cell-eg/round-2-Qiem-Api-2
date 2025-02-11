@@ -31,4 +31,9 @@ class Offer extends Model
             return $q->where('status', $status);
         });
     }
+
+    public function project()
+    {
+        return $this->hasOne(Project::class);
+    }
 }
