@@ -6,11 +6,13 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory,Notifiable;
-    use HasRoles; // لإضافة دعم الأدوار والأذونات
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable,HasApiTokens;
+    use HasRoles; 
 
     protected $fillable = [
         'name',
@@ -18,6 +20,11 @@ class User extends Authenticatable
         'phone',
         'password',
         'city',
+        'mobile_number',
+        'street',
+        'district',
+        'city',
+        'role',
     ];
 
     /**
@@ -50,5 +57,10 @@ class User extends Authenticatable
     public function evaluationCompany()
     {
         return $this->hasOne(EvaluationCompany::class);
+    }
+
+    public function realEstates()
+    {
+        return $this->hasMany(Real_estate::class);
     }
 }
