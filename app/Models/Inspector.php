@@ -14,6 +14,13 @@ class Inspector extends Model
         'inspection_fee',
         'national_id',
         'certificate',
+        'province',
+        'area',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
         'province', // المحافظة
         'area',     // المنطقة
         'balance', // رصيد الحساب
