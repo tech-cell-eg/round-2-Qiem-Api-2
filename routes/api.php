@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
+use App\Http\Controllers\Api\Authentication\EvaluationCompany\EvaluationCompanyRegisterController;
 use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterController;
 
 
@@ -36,7 +37,7 @@ Route::controller(\App\Http\Controllers\API\AuthController::class)->group(functi
 //register individual client
 Route::post('/auth/individual-client/register', [RegisterController::class, 'register']);
 //rerister evaluation company
-Route::post('/auth/register/evaluation-company', [RegisterController::class, 'register']);
+Route::post('/register/evaluation-company', [EvaluationCompanyRegisterController::class, 'register']);
 //Register inspector
 Route::post('/auth/register-inspector', [InspectorRegisterController::class, 'register']);
 

@@ -3,27 +3,15 @@
 namespace App\Http\Controllers\Api\Authentication\EvaluationCompany;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\EvaluationCompanyRegisterRequest;
 use App\Models\User;
 use App\Models\EvaluationCompany;
 use Illuminate\Support\Facades\Hash;
 
-class RegisterController extends Controller
+class EvaluationCompanyRegisterController extends Controller
 {
-
-    public function register(Request $request)
+    public function register(EvaluationCompanyRegisterRequest $request)
     {
-        // Validate request data
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'nullable|string|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'city' => 'nullable|string|max:255',
-            'tax_number' => 'required|string|unique:evaluation_company,tax_number',
-            'authorization' => 'required|string',
-        ]);
-
         // Create user
         $user = User::create([
             'name' => $request->name,
