@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Notifications\customNotification;
 use App\Http\Requests\SendNotificationRequest;
 use App\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
 {
@@ -14,7 +15,8 @@ class NotificationController extends Controller
     //to send notification
     public function send(SendNotificationRequest $request){
         // Find the user by ID
-        $user = User::find($request->input('user_id'));
+        $user = User::find(Auth::user()->id);
+
 
         if (!$user) {
             return $this->errorResponse('User not found', 404);
@@ -29,7 +31,9 @@ class NotificationController extends Controller
     //to get all notification
     public function index(Request $request)
     {
-        $user = User::find($request->input('user_id'));
+
+        $user = User::find(Auth::user()->id);
+
         if (!$user) {
             return $this->errorResponse('User not found',404);
         }
@@ -56,7 +60,9 @@ class NotificationController extends Controller
 
     //mark as read
     public function markAsRead(Request $request){
-        $user = User::find($request->input('user_id'));
+
+        $user = User::find(Auth::user()->id);
+
         if (!$user) {
             return $this->errorResponse('User not found', 404);
         }
