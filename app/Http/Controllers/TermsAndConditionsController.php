@@ -20,5 +20,6 @@ class TermsAndConditionsController extends Controller
         ];
         //return data (json)
         return $this->successResponse($data, 'Terms and Conditions retrieved successfully');
+
     }
 }

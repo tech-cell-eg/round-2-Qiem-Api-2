@@ -17,6 +17,7 @@ class NotificationController extends Controller
         // Find the user by ID
         $user = User::find(Auth::user()->id);
 
+
         if (!$user) {
             return $this->errorResponse('User not found', 404);
         }
@@ -30,7 +31,9 @@ class NotificationController extends Controller
     //to get all notification
     public function index(Request $request)
     {
+
         $user = User::find(Auth::user()->id);
+
         if (!$user) {
             return $this->errorResponse('User not found',404);
         }
@@ -57,7 +60,9 @@ class NotificationController extends Controller
 
     //mark as read
     public function markAsRead(Request $request){
+
         $user = User::find(Auth::user()->id);
+
         if (!$user) {
             return $this->errorResponse('User not found', 404);
         }
