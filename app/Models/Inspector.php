@@ -21,5 +21,17 @@ class Inspector extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+        'province', // المحافظة
+        'area',     // المنطقة
+        'balance', // رصيد الحساب
+        'outstanding_balance', // الرصيد المستحق
+    ];
+
+    /**
+     * Get the user that owns the inspector.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
