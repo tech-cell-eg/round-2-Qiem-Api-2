@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
+
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\InspectorController;
@@ -28,6 +30,7 @@ Route::controller(\App\Http\Controllers\API\AuthController::class)->group(functi
     Route::post('/login', 'login');
     Route::post('/register', 'register');
 });
+Route::post('/auth/individual-client/register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth:sanctum','role:client'])->group( function () {
     Route::controller(\App\Http\Controllers\API\RealEstateController::class)->prefix('real_estate')->group(function () {

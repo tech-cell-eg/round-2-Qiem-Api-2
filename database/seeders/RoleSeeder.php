@@ -5,7 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+<<<<<<< HEAD
+
+=======
 use Spatie\Permission\Models\Permission;
+>>>>>>> main
 
 class RoleSeeder extends Seeder
 {
@@ -14,6 +18,11 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+<<<<<<< HEAD
+
+        Role::firstOrCreate(['name' => 'client']);
+
+=======
         // إنشاء الأدوار
         $individualClientRole = Role::create(['name' => 'individual_client']); // عميل فرد
         $companyClientRole = Role::create(['name' => 'company_client']);       // عميل شركة
@@ -31,5 +40,6 @@ class RoleSeeder extends Seeder
         $evaluationCompanyRole->givePermissionTo(['create-reports', 'view-notifications']);
         $individualClientRole->givePermissionTo(['edit-profile','delete-account']);
         $companyClientRole->givePermissionTo(['edit-profile', 'delete-account']);
+>>>>>>> main
     }
 }
