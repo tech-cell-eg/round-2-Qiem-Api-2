@@ -34,4 +34,4 @@ Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->nam
 //Inspector
 Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
 Route::get('/inspectors/{id}/paid-projects', [InspectorController::class, 'showPaidProjects'])->name('inspectors.paid-projects');
-
+Route::post('/inspector-reports',[InspectorController::class,'store'])->name('inspector.report.store');
