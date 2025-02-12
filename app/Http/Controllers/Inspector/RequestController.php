@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Inspector;
 
-use Illuminate\Http\Request;
+use App\Models\Request;
 use App\Traits\ApiResponseTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class RequestController extends Controller
 {
@@ -30,5 +31,42 @@ class RequestController extends Controller
         "message" => "Request details retrieved successfully",
         "data" => $request
     ]);
+    }
+
+    //accept request
+    public function acceptRequest($id){
+        $request=Request::find($id);
+        if(!$request){
+            return $this->errorResponse("Request not found", 404);
+        }
+        if ($request->status !== 'pending') {
+            return $this->errorResponse("Only pending requests can be accepted", 400);
+        }
+        $validator=Validator::make(['status'=>'accepted'],[
+            'status'=>'in:accepted,rejected',
+        ]);
+        if($validator->fails()){
+            return $this->errorResponse($validator->errors(), 422);
+        }
+        $request->update(['status' => 'accepted']);
+        return $this->successResponse($request, "Request accepted successfully");
+    }
+
+    public function cancelRequest($id){
+        $request=Request::find($id);
+        if(!$request){
+            return $this->errorResponse("Request not found", 404);
+        }
+        if ($request->status !== 'pending') {
+            return $this->errorResponse("Only pending requests can be accepted", 400);
+        }
+        $validator=Validator::make(['status'=>'rejected'],[
+            'status'=>'in:accepted,rejected',
+        ]);
+        if($validator->fails()){
+            return $this->errorResponse($validator->errors(), 422);
+        }
+        $request->update(['status' => 'rejected']);
+        return $this->successResponse($request, "Request rejected successfully");
     }
 }

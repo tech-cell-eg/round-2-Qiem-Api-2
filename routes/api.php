@@ -41,3 +41,9 @@ Route::get('requests/{id}', [RequestController::class, 'show'])->name('requests.
 // Routes for Real Estates (For Inspectors)
 Route::get('real-estates', [InspectorRealEstateController::class, 'index'])->name('real-estates.index');
 Route::get('real-estates/{id}', [InspectorRealEstateController::class, 'show'])->name('real-estates.show');
+
+//accept or reject request
+//accept
+Route::post('/requests/{id}/accept', [RequestController::class, 'acceptRequest'])->name('requests.accept');
+//reject
+Route::post('/requests/{id}/cancel', [RequestController::class, 'cancelRequest'])->name('requests.cancel');
