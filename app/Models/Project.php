@@ -6,8 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $fillable = ['property_id' , 'status' , 'is_paid'];
-    public function property()
+    protected $fillable = [
+        'company_id',
+        'offer_id',
+        'status',
+        'description',
+        'comment',
+        'resume_file'
+    ];
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
+    }
+
+    public function scopeFilterByStatus($query, $status)
+    {
+        return $query->when($status, function ($q) use ($status) {
+            return $q->where('status', $status);
+        });
+
+      public function property()
     {
         return $this->belongsTo(Property::class);
     }
