@@ -92,43 +92,4 @@ class InspectorController extends Controller
 
     }
 
-    //to show all request
-    public function requests(){
-        $allRequest=\App\Models\Request::with(['company','real_estate'])->paginate(10);
-        if($allRequest->isEmpty()){
-            return $this->errorResponse("No Request found",404);
-        }
-        return $this->successResponse($allRequest,"All requests retrieved successfully");
-    }
-
-    public function showRequest($id)
-    {
-    $request = \App\Models\Request::with(['company', 'real_estate'])->find($id);
-
-    if (!$request) {
-        return response()->json(["message" => "Request not found"], 404);
-    }
-
-    return response()->json([
-        "message" => "Request details retrieved successfully",
-        "data" => $request
-    ]);
-    }
-    //show all real-estate
-    public function realEstates(){
-        $realEstates=\App\Models\Real_estate::with('user')->paginate(10);
-        if ($realEstates->isEmpty()) {
-            return $this->errorResponse("No real estates found", 404);
-        }
-        return $this->successResponse($realEstates, "All real estates retrieved successfully");
-    }
-
-    public function showRealEstate($id){
-        $realEstate=\App\Models\Real_estate::with('user')->find($id);
-        if(!$realEstate){
-            return $this->errorResponse("Real estate not found", 404);
-        }
-        return $this->successResponse($realEstate, "Real estate details retrieved successfully");
-    }
-
 }
