@@ -47,6 +47,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update-password', [EditProfileController::class, 'updatePassword']);
 });
 
+//Login & Logout
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::middleware(['auth:sanctum','role:client'])->group( function () {
     Route::controller(\App\Http\Controllers\API\RealEstateController::class)->prefix('real_estate')->group(function () {
        Route::post('/create', 'store');

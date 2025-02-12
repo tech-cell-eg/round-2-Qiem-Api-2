@@ -18,20 +18,24 @@ class Inspector extends Model
         'area',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-        'province', // المحافظة
-        'area',     // المنطقة
-        'balance', // رصيد الحساب
-        'outstanding_balance', // الرصيد المستحق
-    ];
 
-    /**
-     * Get the user that owns the inspector.
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+   }
+// use HasFactory;
+//  protected $fillable =
+//   [
+//     'national_id',
+//     'years_of_experience',
+//     'field_of_experience',
+//     'fee',
+//     'account_balance',
+//     'outstanding_balance',
+//  ];
+//     public function projects()
+//      {
+//     return $this->hasMany(Project::class, 'inspector_id');
+// }
 }
