@@ -21,7 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->alias([
-            'role' => \App\Http\Middleware\CheckUserRole::class,
+            'role' => \App\Http\Middleware\Clinet\CheckUserRole::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

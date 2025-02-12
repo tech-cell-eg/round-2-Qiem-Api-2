@@ -1,16 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
 use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterController;
-
-
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\InspectorController;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\API\Inspector\InspectorController;
+use App\Http\Controllers\API\Inspector\NotificationController;
 use App\Http\Controllers\API\RealEstateController;
 use App\Http\Controllers\TermsAndConditionsController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 
 Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show']);

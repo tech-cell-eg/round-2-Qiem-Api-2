@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\Inspector;
 
+use App\Http\Controllers\Controller;
 use App\Models\Inspector;
 use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;

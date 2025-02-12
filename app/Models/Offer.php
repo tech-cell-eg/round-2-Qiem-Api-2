@@ -31,4 +31,16 @@ class Offer extends Model
             return $q->where('status', $status);
         });
     }
+
+    public function project()
+    {
+        return $this->hasOne(Project::class);
+
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
 }
