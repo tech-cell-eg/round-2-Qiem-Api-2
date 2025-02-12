@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Client;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\OfferResource;
-use Illuminate\Http\Request;
+use App\Http\Resources\Client\OfferResource;
 use App\Models\Offer;
 use App\Models\Real_estate;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class OfferController extends Controller

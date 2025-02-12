@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Client;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RealEstateRequest;
-use App\Http\Resources\Real_estateResource;
+use App\Http\Resources\Client\Real_estateResource;
 use App\Models\Real_estate;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class RealEstateController extends Controller
 {

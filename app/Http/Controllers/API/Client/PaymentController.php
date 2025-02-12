@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Client;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PaymentResource;
+use App\Http\Resources\Client\PaymentResource;
 use App\Models\Payment;
 use App\Models\Real_estate;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PaymentController extends Controller
