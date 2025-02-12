@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Inspector;
 use Illuminate\Http\Request;
 use App\Models\InspectorReport;
+use App\Models\Request as ModelsRequest;
 use App\Traits\ApiResponseTrait;
 
 class InspectorController extends Controller
@@ -90,4 +91,28 @@ class InspectorController extends Controller
         return $this->successResponse($report,'report created successfully');
 
     }
+
+    //to show all request
+    public function index(){
+        $allRequest=\App\Models\Request::with(['company','real_estate'])->paginate(10);
+        if($allRequest->isEmpty()){
+            return $this->errorResponse("No Request found",404);
+        }
+        return $this->successResponse($allRequest,"All requests retrieved successfully");
+    }
+
+    public function showRequest($id)
+{
+    $request = \App\Models\Request::with(['company', 'real_estate'])->find($id);
+
+    if (!$request) {
+        return response()->json(["message" => "Request not found"], 404);
+    }
+
+    return response()->json([
+        "message" => "Request details retrieved successfully",
+        "data" => $request
+    ]);
+}
+
 }
