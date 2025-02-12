@@ -25,5 +25,9 @@ class Project extends Model
         return $query->when($status, function ($q) use ($status) {
             return $q->where('status', $status);
         });
+
+      public function property()
+    {
+        return $this->belongsTo(Property::class);
     }
 }
