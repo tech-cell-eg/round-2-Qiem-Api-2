@@ -13,14 +13,12 @@ class EvaluationCompanyRegisterController extends Controller
 {
     public function register(Request $request)
     {
-        // Create user
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-            'city' => $request->city,
-        ]);
+
+        $validated = $request->validated();
+        $validated['password'] = Hash::make($validated['password']);
+        $user = User::create(
+            $validated
+        );
 
         // Create evaluation company linked to user
         $evaluationCompany = EvaluationCompany::create([
