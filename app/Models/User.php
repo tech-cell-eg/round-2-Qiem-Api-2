@@ -27,6 +27,9 @@ class User extends Authenticatable
         'district',
         'city',
         'role',
+        'whatsapp_link',
+        'comments',
+        'sms_number',  
     ];
 
     /**
@@ -56,5 +59,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Real_estate::class);
     }
-    
+
 }

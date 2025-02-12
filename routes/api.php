@@ -35,5 +35,7 @@ Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->nam
 Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
 Route::get('/inspectors/{id}/paid-projects', [InspectorController::class, 'showPaidProjects'])->name('inspectors.paid-projects');
 Route::post('/inspector-reports',[InspectorController::class,'store'])->name('inspector.report.store');
-Route::get('/requests', [InspectorController::class, 'index'])->name('requests.index');
+Route::get('/requests', [InspectorController::class, 'requests'])->name('requests.index');
 Route::get('/requests/{id}', [InspectorController::class, 'showRequest'])->name('requests.show');
+Route::get('/real-estates', [InspectorController::class,'realEstates'])->name('real-estates.index');
+Route::get('/real-estates/{id}', [InspectorController::class,'showRealEstate'])->name('real-estates.show');

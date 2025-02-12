@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->foreignId('inspector_id')->nullable()->constrained('inspectors')->nullOnDelete();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('whatsapp_link')->nullable(); // رابط WhatsApp
+            $table->text('comments')->nullable();
+            $table->string('sms_number')->nullable(); // رقم الهاتف للرسائل النصية
+
         });
     }
 
@@ -21,9 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->dropForeign(['inspector_id']);
-            $table->dropColumn('inspector_id');
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 };

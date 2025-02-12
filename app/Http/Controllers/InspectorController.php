@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Inspector;
 use Illuminate\Http\Request;
 use App\Models\InspectorReport;
+use App\Models\Real_estate;
 use App\Models\Request as ModelsRequest;
 use App\Traits\ApiResponseTrait;
 
@@ -31,7 +32,6 @@ class InspectorController extends Controller
         if (!$inspector) {
             return $this->errorResponse("Inspector not found", 404);
         }
-        // $paidProjects = $inspector->projects()->where('is_paid', 1)->get();
         $paidProjects=Project::where('inspector_id',$id)->where('is_paid',1)->get();
         if($paidProjects->isEmpty()){
             return $this->errorResponse('No paid projects found for this inspector', 404);
@@ -93,7 +93,7 @@ class InspectorController extends Controller
     }
 
     //to show all request
-    public function index(){
+    public function requests(){
         $allRequest=\App\Models\Request::with(['company','real_estate'])->paginate(10);
         if($allRequest->isEmpty()){
             return $this->errorResponse("No Request found",404);
@@ -102,7 +102,7 @@ class InspectorController extends Controller
     }
 
     public function showRequest($id)
-{
+    {
     $request = \App\Models\Request::with(['company', 'real_estate'])->find($id);
 
     if (!$request) {
@@ -113,6 +113,22 @@ class InspectorController extends Controller
         "message" => "Request details retrieved successfully",
         "data" => $request
     ]);
-}
+    }
+    //show all real-estate
+    public function realEstates(){
+        $realEstates=\App\Models\Real_estate::with('user')->paginate(10);
+        if ($realEstates->isEmpty()) {
+            return $this->errorResponse("No real estates found", 404);
+        }
+        return $this->successResponse($realEstates, "All real estates retrieved successfully");
+    }
+
+    public function showRealEstate($id){
+        $realEstate=\App\Models\Real_estate::with('user')->find($id);
+        if(!$realEstate){
+            return $this->errorResponse("Real estate not found", 404);
+        }
+        return $this->successResponse($realEstate, "Real estate details retrieved successfully");
+    }
 
 }
