@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\Inspector\InspectorReporstsController;
+use App\Http\Controllers\Inspector\InspectorReportsController;
+use App\Http\Controllers\Inspector\PaidProjectsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\TermsAndConditionsController;
 use App\Http\Controllers\Inspector\RealEstateController as InspectorRealEstateController;
@@ -33,11 +36,17 @@ Route::get('/get-notifications', [NotificationController::class, 'index'])->name
 Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark.as.read');
 
 Route::get('inspectors/{id}/balance', [InspectorController::class, 'getBalance'])->name('inspectors.balance');
-Route::get('inspectors/{id}/paid-projects', [InspectorController::class, 'getPaidProjects'])->name('inspectors.paid-projects');
-Route::post('inspectors/reports', [InspectorController::class, 'storeReport'])->name('inspector.report.store');
+
+//paid project
+Route::get('inspectors/{id}/paid-projects', [PaidProjectsController::class, 'index'])->name('inspectors.paid-projects');
+
+//report
+Route::post('inspectors/reports', [InspectorReportsController::class, 'store'])->name('inspector.report.store');
+
 // Routes for Requests
 Route::get('requests', [RequestController::class, 'index'])->name('requests.index');
 Route::get('requests/{id}', [RequestController::class, 'show'])->name('requests.show');
+
 // Routes for Real Estates (For Inspectors)
 Route::get('real-estates', [InspectorRealEstateController::class, 'index'])->name('real-estates.index');
 Route::get('real-estates/{id}', [InspectorRealEstateController::class, 'show'])->name('real-estates.show');
