@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('individual_clients', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // علاقة مع جدول users
+        Schema::create('companies', function (Blueprint $table) {
+            $table->foreignId('company_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unique('company_id');
+            $table->primary('company_id');
+            $table->float('tax_number');
+            $table->string('authorization');
             $table->timestamps();
         });
     }
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('individual_clients');
+        Schema::dropIfExists('companies');
     }
 };
