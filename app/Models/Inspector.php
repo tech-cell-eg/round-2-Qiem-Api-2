@@ -17,6 +17,7 @@ class Inspector extends Model
         'province',
         'area',
     ];
+    protected $primaryKey = 'inspector_id';
 
     /**
      * Get the user that owns the inspector.
@@ -24,5 +25,9 @@ class Inspector extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
     }
 }

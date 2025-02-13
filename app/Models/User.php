@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
 
     use HasFactory, Notifiable,HasApiTokens;
-    use HasRoles; 
+    use HasRoles;
 
     protected $fillable = [
         'name',
@@ -42,20 +42,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(CompanyClient::class);
     }
-    public function individualClient()
-    {
-        return $this->hasOne(IndividualClient::class);
-    }
-
-{
-    return $this->hasOne(IndividualClient::class);
 
     /**
      * Get the inspector associated with the user.
      */
     public function inspector()
     {
-        return $this->hasOne(Inspector::class);
+        return $this->hasOne(Inspector::class,'inspector_id');
     }
 
     /**
@@ -64,10 +57,6 @@ class User extends Authenticatable
     public function evaluationCompany()
     {
         return $this->hasOne(EvaluationCompany::class);
-    }
-    public function inspector()
-    {
-        return $this->hasOne(Inspector::class, 'user_id');
     }
 
     public function realEstates()

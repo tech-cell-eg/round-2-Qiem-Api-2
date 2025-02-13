@@ -19,7 +19,7 @@ Route::get('/get-notifications', [NotificationController::class, 'index'])->name
 Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark.as.read');
 
 //Inspector
-Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
+//Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -58,6 +58,10 @@ Route::middleware(['auth:sanctum','role:client'])->group( function () {
     Route::controller(\App\Http\Controllers\API\Client\ProjectController::class)->prefix('project')->group(function () {
        Route::get('/allProjects', 'index');
        Route::get('/project/{id}', 'show');
+    });
+
+    Route::controller(\App\Http\Controllers\API\Client\InspectorController::class)->prefix('inspector')->group(function () {
+        Route::get('/inspector/{project_id}', 'getInspectorByProject');
     });
 });
 
