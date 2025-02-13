@@ -51,7 +51,8 @@ Route::post('/requests/{id}/cancel', [RequestController::class, 'cancelRequest']
 //company
 //finish project
 Route::get('/project/{id}/finish',[CompanyController::class,'finish'])->name('project.finish');
-
+//Company wallet
+Route::get('/company/{id}/wallet',[CompanyController::class, 'show'])->name('company.wallet.show');
 
 
 // Get authenticated user
