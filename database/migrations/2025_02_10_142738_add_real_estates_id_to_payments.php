@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('individual_clients', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // علاقة مع جدول users
-            $table->timestamps();
+        Schema::table('payments', function (Blueprint $table) {
+            $table->foreignId('real_estates_id')->nullable()->references('id')->on('real_estates')->cascadeOnDelete()->nullOnDelete();
         });
     }
 
@@ -23,6 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('individual_clients');
+        Schema::table('payments', function (Blueprint $table) {
+        });
     }
 };

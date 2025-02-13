@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\Inspector;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Notifications\customNotification;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\SendNotificationRequest;
+use App\Models\User;
+use App\Notifications\customNotification;
 use App\Traits\ApiResponseTrait;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller

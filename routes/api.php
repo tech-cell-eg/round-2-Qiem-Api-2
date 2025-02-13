@@ -1,66 +1,74 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
 use App\Http\Controllers\Api\Authentication\EvaluationCompany\EvaluationCompanyRegisterController;
 use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterController;
-
-
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\Api\authentication\EditProfile\EditProfileController;
-use App\Http\Controllers\InspectorController;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Api\Authentication\EditProfile\EditProfileController;
+use App\Http\Controllers\API\Inspector\InspectorController;
+use App\Http\Controllers\API\Inspector\NotificationController;
 use App\Http\Controllers\API\RealEstateController;
 use App\Http\Controllers\TermsAndConditionsController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
+Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
 
-Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show']);
-
-//notifications
-Route::post('/send-notification',[NotificationController::class,'send'])->name('send.notification');
+// Notifications
+Route::post('/send-notification', [NotificationController::class, 'send'])->name('send.notification');
 Route::get('/get-notifications', [NotificationController::class, 'index'])->name('get.notifications');
 Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark.as.read');
 
-//Inspector
+// Inspector
 Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
 
+// Get authenticated user
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::controller(\App\Http\Controllers\API\AuthController::class)->group(function () {
+// Authentication routes
+Route::controller(\App\Http\Controllers\API\Client\AuthController::class)->group(function () {
     Route::post('/login', 'login');
     Route::post('/register', 'register');
 });
 
-
-//register individual client
+// Register individual client
 Route::post('/auth/individual-client/register', [RegisterController::class, 'register']);
-//rerister evaluation company
+
+// Register evaluation company
 Route::post('/register/evaluation-company', [EvaluationCompanyRegisterController::class, 'register']);
-//Register inspector
+
+// Register inspector
 Route::post('/auth/register-inspector', [InspectorRegisterController::class, 'register']);
-//Eitd Profile & Edit Password
+
+// Edit Profile & Password
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/update-profile', [EditProfileController::class, 'updateProfile']);
     Route::post('/update-password', [EditProfileController::class, 'updatePassword']);
 });
 
-Route::middleware(['auth:sanctum','role:client'])->group( function () {
-    Route::controller(\App\Http\Controllers\API\RealEstateController::class)->prefix('real_estate')->group(function () {
-       Route::post('/create', 'store');
-       Route::delete('/delete/{id}/{client_id}', 'delete');
-       Route::put('/update/{id}/{client_id}', 'update');
+// Client routes
+Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
+    Route::controller(\App\Http\Controllers\API\Client\RealEstateController::class)->prefix('real_estate')->group(function () {
+        Route::post('/create', 'store');
+        Route::get('/all', 'index');
+        Route::delete('/delete/{id}/{client_id}', 'delete');
+        Route::put('/update/{id}/{client_id}', 'update');
+    });
+
+    Route::controller(\App\Http\Controllers\API\Client\PaymentController::class)->prefix('payment')->group(function () {
+        Route::get('/paidRealEstate', 'index');
+    });
+
+    Route::controller(\App\Http\Controllers\API\Client\OfferController::class)->prefix('offer')->group(function () {
+        Route::get('/allOffers', 'index');
+        Route::get('/offer/{id}', 'show');
+        Route::put('updateOfferStatus/{id}', 'updateOfferStatus');
+    });
+
+    Route::controller(\App\Http\Controllers\API\Client\ProjectController::class)->prefix('project')->group(function () {
+        Route::get('/allProjects', 'index');
+        Route::get('/project/{id}', 'show');
     });
 });
-
-Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
-//notifications
-Route::post('/send-notification',[NotificationController::class,'send'])->name('send.notification');
-Route::get('/get-notifications', [NotificationController::class, 'index'])->name('get.notifications');
-Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark.as.read');
-
-//Inspector
-Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
-
