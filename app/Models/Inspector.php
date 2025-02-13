@@ -17,7 +17,6 @@ class Inspector extends Model
         'province',
         'area',
     ];
-
     /**
      * Get the user that owns the inspector.
      */

@@ -11,6 +11,7 @@ use App\Http\Controllers\API\RealEstateController;
 use App\Http\Controllers\TermsAndConditionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeamMember\TeamMemberController;
 
 Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
 
@@ -72,3 +73,7 @@ Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
         Route::get('/project/{id}', 'show');
     });
 });
+
+//////Show team members
+Route::post('/team-members', [TeamMemberController::class, 'store']);
+Route::get('/team-members', [TeamMemberController::class, 'index']);
