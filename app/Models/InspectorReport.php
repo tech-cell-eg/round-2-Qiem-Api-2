@@ -37,9 +37,14 @@ class InspectorReport extends Model
         'property_age',
         'Ready_to_use',
         'service_id',
+        'company_rating',
     ];
 
     protected $casts = [
-        'property_boundaries' => 'array', 
+        'property_boundaries' => 'array',
     ];
+    public function inspector()
+    {
+        return $this->belongsTo(Inspector::class, 'inspector_id', 'inspector_id');
+    }
 }

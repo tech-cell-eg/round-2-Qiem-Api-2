@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Inspector extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'inspector_id';
+    public $incrementing = false;
 
     protected $fillable = [
         'national_id',
@@ -19,8 +21,12 @@ class Inspector extends Model
 
     ];
     public function projects()
-        {
-            return $this->hasMany(Project::class, 'inspector_id');
-        }
+    {
+        return $this->hasMany(Project::class, 'inspector_id');
+    }
 
+    public function reports()
+    {
+        return $this->hasMany(InspectorReport::class, 'inspector_id','inspector_id');
+    }
 }
