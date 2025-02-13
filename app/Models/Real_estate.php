@@ -25,4 +25,13 @@ class Real_estate extends Model
     public function payments(){
         return $this->hasMany(Payment::class);
     }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'client_id');
+    }
 }

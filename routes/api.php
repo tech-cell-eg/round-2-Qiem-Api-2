@@ -1,26 +1,58 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
-use App\Http\Controllers\Api\Authentication\EvaluationCompany\EvaluationCompanyRegisterController;
-use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterController;
-use App\Http\Controllers\Api\Authentication\EditProfile\EditProfileController;
-use App\Http\Controllers\API\Inspector\InspectorController;
-use App\Http\Controllers\API\Inspector\NotificationController;
-use App\Http\Controllers\API\RealEstateController;
-use App\Http\Controllers\TermsAndConditionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\RealEstateController;
+use App\Http\Controllers\Inspector\RequestController;
+use App\Http\Controllers\TermsAndConditionsController;
+use App\Http\Controllers\Inspector\PaidProjectsController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Company\CompanyController;
+use App\Http\Controllers\Inspector\RealEstateController as InspectorRealEstateController;
+use App\Http\Controllers\Inspector\InspectorController;
+use App\Http\Controllers\Inspector\InspectorReportsController;
+use App\Http\Controllers\Api\Authentication\EditProfile\EditProfileController;
+use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
+use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterController;
+use App\Http\Controllers\Api\Authentication\EvaluationCompany\EvaluationCompanyRegisterController;
+
 
 Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
-
-// Notifications
-Route::post('/send-notification', [NotificationController::class, 'send'])->name('send.notification');
+//notifications
+Route::post('/send-notification',[NotificationController::class,'send'])->name('send.notification');
 Route::get('/get-notifications', [NotificationController::class, 'index'])->name('get.notifications');
 Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark.as.read');
 
-// Inspector
-Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
+Route::get('inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
+
+//paid project
+Route::get('inspectors/{id}/paid-projects', [PaidProjectsController::class, 'index'])->name('inspectors.paid-projects');
+
+//report
+Route::post('inspectors/report', [InspectorReportsController::class, 'store'])->name('inspector.report.store');
+Route::get('/inspectors/reports', [InspectorReportsController::class, 'index'])->name('inspectors.index');
+Route::get('/inspectors/report/{id}',[InspectorReportsController::class,'show'])->name('inspector.report.show');
+
+// Routes for Requests
+Route::get('requests', [RequestController::class, 'index'])->name('requests.index');
+Route::get('requests/{id}', [RequestController::class, 'show'])->name('requests.show');
+
+// Routes for Real Estates (For Inspectors)
+Route::get('real-estates', [InspectorRealEstateController::class, 'index'])->name('real-estates.index');
+Route::get('real-estates/{id}', [InspectorRealEstateController::class, 'show'])->name('real-estates.show');
+
+//accept or reject request
+//accept
+Route::post('/requests/{id}/accept', [RequestController::class, 'acceptRequest'])->name('requests.accept');
+//reject
+Route::post('/requests/{id}/cancel', [RequestController::class, 'cancelRequest'])->name('requests.cancel');
+
+//company
+//finish project
+Route::get('/project/{id}/finish',[CompanyController::class,'finish'])->name('project.finish');
+
+
 
 // Get authenticated user
 Route::get('/user', function (Request $request) {

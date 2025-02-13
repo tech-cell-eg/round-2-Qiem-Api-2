@@ -12,7 +12,8 @@ class Project extends Model
         'status',
         'description',
         'comment',
-        'resume_file'
+        'resume_file',
+        'is_paid',
     ];
 
     public function offer()
@@ -25,9 +26,9 @@ class Project extends Model
         return $query->when($status, function ($q) use ($status) {
             return $q->where('status', $status);
         });
-
+    }
       public function property()
     {
-        return $this->belongsTo(Property::class);
+        return $this->belongsTo(Real_estate::class);
     }
 }
