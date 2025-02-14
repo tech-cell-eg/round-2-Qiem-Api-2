@@ -26,13 +26,16 @@ class Project extends Model
             return $q->where('status', $status);
         });
     }
-
-    public function property()
-    {
-        return $this->belongsTo(Property::class);
+    public function paymentProject(){
+        return $this->hasOne(Payment::class);
     }
     public function inspector()
     {
         return $this->belongsTo(Inspector::class,'inspector_id');
+    }
+
+    public function clinet()
+    {
+        return $this->belongsTo(User::class);
     }
 }

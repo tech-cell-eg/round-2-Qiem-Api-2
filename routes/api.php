@@ -65,6 +65,18 @@ Route::middleware(['auth:sanctum','role:client'])->group( function () {
     });
 });
 
+//Route::group(function (){
+    Route::controller(\App\Http\Controllers\API\Company\ProjectController::class)->prefix('company')->group(function () {
+        Route::get('/allProjects', 'index');
+        Route::get('/project/{id}', 'show');
+        Route::get('/paidProjects', 'paidProjects');
+        Route::get('/{project_id}/comments', 'comments');
+    });
+    Route::controller(\App\Http\Controllers\API\Company\Real_estateController::class)->prefix('company')->group(function () {
+        Route::get('/allRealEstate', 'index');
+    });
+//});
+
 Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
 //notifications
 Route::post('/send-notification',[NotificationController::class,'send'])->name('send.notification');

@@ -20,4 +20,8 @@ class Payment extends Model
     public function real_estate(){
         return $this->belongsTo(Real_estate::class,'real_estates_id');
     }
+
+    public function project(){
+        return $this->belongsTo(Project::class,'project_id');
+    }
 }

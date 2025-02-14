@@ -63,6 +63,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Real_estate::class);
     }
+    public function project()
+    {
+        return $this->hasMany(Project::class);
+    }
 
 }
 
