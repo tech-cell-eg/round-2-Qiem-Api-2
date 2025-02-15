@@ -19,7 +19,12 @@ class Inspector extends Model
         'area',
         'account_balance',
         'outstanding_balance',
+
     ];
+    public function projects()
+        {
+            return $this->hasMany(Project::class, 'inspector_id');
+        }
     /**
      * Get the user that owns the inspector.
      */

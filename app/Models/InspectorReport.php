@@ -37,6 +37,10 @@ class InspectorReport extends Model
         'property_age',
         'Ready_to_use',
         'service_id',
+    ];
+
+    protected $casts = [
+        'property_boundaries' => 'array', 
         'company_rating',
     ];
 

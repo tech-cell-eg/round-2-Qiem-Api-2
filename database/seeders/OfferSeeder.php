@@ -26,7 +26,7 @@ class OfferSeeder extends Seeder
                 'real_estate_id' => 2,
                 'details'        => 'خصم 10% عند الدفع الكاش',
                 'amount'         => 5000000,
-                'status'         => 'accepted',
+                'status'         => 'acceptance',
                 'client_id'      => 2,
                 'created_at'     => Carbon::now(),
                 'updated_at'     => Carbon::now(),

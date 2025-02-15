@@ -29,7 +29,7 @@ class User extends Authenticatable
         'role',
         'whatsapp_link',
         'comments',
-        'sms_number',
+        'sms_number',  
     ];
 
     /**

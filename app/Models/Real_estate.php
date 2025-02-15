@@ -18,8 +18,13 @@ class Real_estate extends Model
         'client_id'
     ];
 
-    public function client(){
-        return $this->belongsTo(User::class);
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'client_id');
     }
 
     public function payments(){

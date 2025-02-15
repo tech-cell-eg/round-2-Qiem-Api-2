@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Project extends Model
 {
@@ -15,6 +17,10 @@ class Project extends Model
         'resume_file',
         'is_paid',
     ];
+    public function inspector()
+    {
+        return $this->belongsTo(Inspector::class, 'inspector_id');
+    }
 
     public function offer()
     {

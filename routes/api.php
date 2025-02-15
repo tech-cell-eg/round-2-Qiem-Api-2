@@ -58,6 +58,7 @@ Route::get('/project/{id}/finish',[CompanyController::class,'finish'])->name('pr
 Route::get('/company/{id}/wallet',[CompanyController::class, 'show'])->name('company.wallet.show');
 
 
+
 // Get authenticated user
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -97,6 +98,21 @@ Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
         Route::get('/paidRealEstate', 'index');
     });
 
+Route::get('inspectors/{id}/balance', [InspectorController::class, 'getBalance'])->name('inspectors.balance');
+Route::get('inspectors/{id}/paid-projects', [InspectorController::class, 'getPaidProjects'])->name('inspectors.paid-projects');
+Route::post('inspectors/reports', [InspectorController::class, 'storeReport'])->name('inspector.report.store');
+// Routes for Requests
+Route::get('requests', [RequestController::class, 'index'])->name('requests.index');
+Route::get('requests/{id}', [RequestController::class, 'show'])->name('requests.show');
+// Routes for Real Estates (For Inspectors)
+Route::get('real-estates', [InspectorRealEstateController::class, 'index'])->name('real-estates.index');
+Route::get('real-estates/{id}', [InspectorRealEstateController::class, 'show'])->name('real-estates.show');
+
+//accept or reject request
+//accept
+Route::post('/requests/{id}/accept', [RequestController::class, 'acceptRequest'])->name('requests.accept');
+//reject
+Route::post('/requests/{id}/cancel', [RequestController::class, 'cancelRequest'])->name('requests.cancel');
     Route::controller(\App\Http\Controllers\API\Client\OfferController::class)->prefix('offer')->group(function () {
         Route::get('/allOffers', 'index');
         Route::get('/offer/{id}', 'show');

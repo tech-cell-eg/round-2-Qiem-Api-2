@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('whatsapp_link')->nullable();
+            $table->string('whatsapp_link')->nullable(); // رابط WhatsApp
             $table->text('comments')->nullable();
-            $table->string('sms_number')->nullable();
+            $table->string('sms_number')->nullable(); // رقم الهاتف للرسائل النصية
         });
     }
 
