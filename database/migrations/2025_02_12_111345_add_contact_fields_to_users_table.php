@@ -15,7 +15,6 @@ return new class extends Migration
             $table->string('whatsapp_link')->nullable(); // رابط WhatsApp
             $table->text('comments')->nullable();
             $table->string('sms_number')->nullable(); // رقم الهاتف للرسائل النصية
-
         });
     }
 

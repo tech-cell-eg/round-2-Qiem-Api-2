@@ -14,6 +14,9 @@ class NotificationController extends Controller
     use ApiResponseTrait;
     //to send notification
     public function send(SendNotificationRequest $request){
+        if (!Auth::check()) {
+            return $this->errorResponse('User not authenticated', 401);
+        }
         // Find the user by ID
         $user = User::find(Auth::user()->id);
 
@@ -57,6 +60,9 @@ class NotificationController extends Controller
 
     //mark as read
     public function markAsRead(Request $request){
+        if (!Auth::check()) {
+            return $this->errorResponse('User not authenticated', 401);
+        }
         $user = User::find(Auth::user()->id);
         if (!$user) {
             return $this->errorResponse('User not found', 404);

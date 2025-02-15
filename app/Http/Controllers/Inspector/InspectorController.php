@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Inspector;
 
-use App\Models\Project;
 use App\Models\Inspector;
 use Illuminate\Http\Request;
 use App\Models\InspectorReport;
-use App\Models\Real_estate;
-use App\Models\Request as ModelsRequest;
 use App\Traits\ApiResponseTrait;
+use App\Http\Controllers\Controller;
+
 
 class InspectorController extends Controller
 {
@@ -25,7 +24,6 @@ class InspectorController extends Controller
         ];
         return $this->successResponse($data,'Inspector balance details retrieved successfully');
     }
-
     //Show all paid projects for a specific inspector.
     public function showPaidProjects($id){
         $inspector = Inspector::where('inspector_id', $id)->first();
@@ -91,5 +89,4 @@ class InspectorController extends Controller
         return $this->successResponse($report,'report created successfully');
 
     }
-
 }

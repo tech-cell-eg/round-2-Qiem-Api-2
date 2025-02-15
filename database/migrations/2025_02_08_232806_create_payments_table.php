@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('project_id')->references('id')->on('projects')->cascadeOnDelete();
+            $table->foreignId('project_id')->nullable()->references('id')->on('projects')->cascadeOnDelete();
             $table->float('amount');
             $table->string('Payment_date');
             $table->enum('status',['paid','pending','rejected']);

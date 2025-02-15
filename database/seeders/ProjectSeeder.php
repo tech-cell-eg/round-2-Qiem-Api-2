@@ -27,6 +27,7 @@ class ProjectSeeder extends Seeder
                 'is_paid'      => false,
                 'created_at'   => Carbon::now(),
                 'updated_at'   => Carbon::now(),
+                'inspector_id'    => null
             ],
             [
                 'company_id'   => 2,
@@ -38,6 +39,7 @@ class ProjectSeeder extends Seeder
                 'is_paid'      => true,
                 'created_at'   => Carbon::now(),
                 'updated_at'   => Carbon::now(),
+                'inspector_id'    => null
             ],
         ]);
     }
