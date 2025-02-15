@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('inspectors', function (Blueprint $table) {
-            // إضافة الأعمدة الجديدة
-            $table->decimal('account_balance', 10, 2)->default(0)->after('fee'); // رصيد الحساب
-            $table->decimal('outstanding_balance', 10, 2)->default(0)->after('account_balance'); // رصيد المستحقات
-
-            // إزالة العمود القديم (balance)
+            $table->decimal('account_balance', 10, 2)->default(0)->after('fee');
+            $table->decimal('outstanding_balance', 10, 2)->default(0)->after('account_balance');
             $table->dropColumn('balance');
         });
     }

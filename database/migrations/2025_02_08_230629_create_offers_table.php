@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('real_estate_id')->references('id')->on('real_estates')->cascadeOnDelete();
             $table->string('details');
             $table->float('amount');
-            $table->enum('status',['acceptance','refused','hold on'])->default('hold on');
+            $table->enum('status',['accepted','refused','hold on'])->default('hold on');
             $table->foreignId('client_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });

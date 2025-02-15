@@ -41,5 +41,14 @@ class InspectorReport extends Model
 
     protected $casts = [
         'property_boundaries' => 'array', 
+        'company_rating',
     ];
+
+    protected $casts = [
+        'property_boundaries' => 'array',
+    ];
+    public function inspector()
+    {
+        return $this->belongsTo(Inspector::class, 'inspector_id', 'inspector_id');
+    }
 }

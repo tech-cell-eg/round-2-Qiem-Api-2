@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('terms_and_conditions', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('body');
-            $table->timestamps();   
+        Schema::table('evaluation_companies', function (Blueprint $table) {
+            $table->decimal('balance', 10, 2)->default(0);
+            $table->decimal('outstanding_balance', 10, 2)->default(0);
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('terms_and_conditions');
+        Schema::table('evaluation_companies', function (Blueprint $table) {
+            //
+        });
     }
 };

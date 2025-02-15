@@ -9,7 +9,9 @@ class Company extends Model
     protected $fillable = [
         'company_id',
         'tax_number',
-        'authorization'
+        'authorization',
+        'balance',
+        'outstanding_balance',
     ];
     public function requests()
     {
