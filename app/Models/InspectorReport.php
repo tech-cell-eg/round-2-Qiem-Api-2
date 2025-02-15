@@ -41,7 +41,8 @@ class InspectorReport extends Model
     ];
 
     protected $casts = [
-        'property_boundaries' => 'array',
+        'property_boundaries' => 'array', 
+        'company_rating',
     ];
     public function inspector()
     {
