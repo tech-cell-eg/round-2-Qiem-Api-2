@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\IndividualClient;
+use App\Models\EvaluationCompany;
+use App\Models\Inspector;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -45,5 +49,51 @@ class AuthController extends Controller
 
         return ApiResponse::sendResponse(Response::HTTP_CREATED, 'User created successfully', $data);
 
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $user = Auth::user();
+        $role = $this->getUserRole($user->id);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'role' => $role,
+            'token' => $token,
+        ]);
+    }
+
+   // Logout Method
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete(); // Revoke all tokens
+        return response()->json(['message' => 'Logged out successfully']);
+    }
+
+
+
+    // Helper function to determine user role
+    private function getUserRole($userId)
+    {
+        if (IndividualClient::where('user_id', $userId)->exists()) {
+            return 'individual_client';
+        }
+        if (EvaluationCompany::where('user_id', $userId)->exists()) {
+            return 'evaluation_company';
+        }
+        if (Inspector::where('user_id', $userId)->exists()) {
+            return 'inspector';
+        }
+        return 'unknown';
     }
 }

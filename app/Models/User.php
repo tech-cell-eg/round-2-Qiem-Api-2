@@ -45,7 +45,7 @@ class User extends Authenticatable
      */
     public function companyClient()
     {
-        return $this->hasOne(CompanyClient::class);
+        return $this->hasOne(CompanyClient::class, 'user_id');
     }
 
     /**
@@ -57,7 +57,7 @@ class User extends Authenticatable
      */
     public function evaluationCompany()
     {
-        return $this->hasOne(EvaluationCompany::class);
+        return $this->hasOne(EvaluationCompany::class, 'user_id');
     }
     public function inspector()
     {

@@ -20,8 +20,7 @@ class Inspector extends Model
         'province',
         'area',
         'account_balance',
-        'outstanding_balance',
-
+        'outstanding_balance'
     ];
     public function projects()
         {
@@ -33,10 +32,6 @@ class Inspector extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-    public function projects()
-    {
-        return $this->hasMany(Project::class, 'inspector_id');
     }
     public function reports()
     {
