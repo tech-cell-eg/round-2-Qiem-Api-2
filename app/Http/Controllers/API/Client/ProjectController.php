@@ -16,7 +16,7 @@ class ProjectController extends Controller
     {
         $offerId = Offer::Where('client_id', auth()->user()->id)->pluck('id');
         $status = $request->status;
-        $projects = Project::whereIn('offer_id', $offerId)
+        $projects = Project::where('client_id',  auth()->user()->id)
             ->filterByStatus($status)
             ->get();
         if ($projects->isNotEmpty()) {

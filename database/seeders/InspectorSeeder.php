@@ -34,5 +34,6 @@ class InspectorSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
         ]);
+
     }
 }

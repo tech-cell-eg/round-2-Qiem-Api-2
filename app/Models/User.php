@@ -13,8 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-
-    use HasFactory,Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
     use HasRoles;
 
     protected $fillable = [
@@ -29,7 +28,7 @@ class User extends Authenticatable
         'role',
         'whatsapp_link',
         'comments',
-        'sms_number',  
+        'sms_number',
     ];
 
     /**
@@ -51,6 +50,10 @@ class User extends Authenticatable
     /**
      * Get the inspector associated with the user.
      */
+    public function inspector()
+    {
+        return $this->hasOne(Inspector::class, 'inspector_id');
+    }
 
     /**
      * Get the evaluation company associated with the user.
@@ -59,19 +62,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(EvaluationCompany::class, 'user_id');
     }
-    public function inspector()
-    {
-        return $this->hasOne(Inspector::class, 'user_id');
-    }
 
     public function realEstates()
     {
         return $this->hasMany(Real_estate::class);
     }
+
     public function teamMember()
     {
         return $this->hasOne(TeamMember::class, 'user_id');
     }
 
+    public function project()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
-
