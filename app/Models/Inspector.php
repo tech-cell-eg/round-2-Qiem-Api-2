@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Inspector extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'inspector_id';
+    public $incrementing = false;
 
     protected $fillable = [
         'user_id',

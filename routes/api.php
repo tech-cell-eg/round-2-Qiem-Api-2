@@ -106,7 +106,9 @@ Route::get('inspectors/{id}/balance', [InspectorController::class, 'getBalance']
 Route::get('inspectors/{id}/paid-projects', [PaidProjectsController::class, 'index'])->name('inspectors.paid-projects');
 
 //report
-Route::post('inspectors/reports', [InspectorReportsController::class, 'store'])->name('inspector.report.store');
+Route::post('inspectors/report', [InspectorReportsController::class, 'store'])->name('inspector.report.store');
+Route::get('/inspectors/reports', [InspectorReportsController::class, 'index'])->name('inspectors.index');
+Route::get('/inspectors/report/{id}',[InspectorReportsController::class,'show'])->name('inspector.report.show');
 
 // Routes for Requests
 Route::get('requests', [RequestController::class, 'index'])->name('requests.index');
