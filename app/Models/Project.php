@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
 class Project extends Model
 {
     protected $fillable = [
@@ -33,8 +32,18 @@ class Project extends Model
             return $q->where('status', $status);
         });
     }
-      public function property()
+
+    public function property()
     {
         return $this->belongsTo(Real_estate::class);
+    }
+    public function paymentProject()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(User::class);
     }
 }

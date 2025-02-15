@@ -26,7 +26,7 @@ Route::get('/get-notifications', [NotificationController::class, 'index'])->name
 Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark.as.read');
 
 //Inspector
-Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
+//Route::get('/inspectors/{id}/balance', [InspectorController::class, 'show'])->name('inspectors.balance');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -60,7 +60,37 @@ Route::middleware(['auth:sanctum','role:client'])->group( function () {
        Route::delete('/delete/{id}/{client_id}', 'delete');
        Route::put('/update/{id}/{client_id}', 'update');
     });
+
+    Route::controller(\App\Http\Controllers\API\Client\PaymentController::class)->prefix('payment')->group(function () {
+        Route::get('/paidRealEstate', 'index');
+    });
+
+    Route::controller(\App\Http\Controllers\API\Client\OfferController::class)->prefix('offer')->group(function () {
+        Route::get('/allOffers', 'index');
+        Route::get('/offer/{id}', 'show');
+        Route::put('updateOfferStatus/{id}','updateOfferStatus');
+    });
+    Route::controller(\App\Http\Controllers\API\Client\ProjectController::class)->prefix('project')->group(function () {
+       Route::get('/allProjects', 'index');
+       Route::get('/project/{id}', 'show');
+    });
+
+    Route::controller(\App\Http\Controllers\API\Client\InspectorController::class)->prefix('inspector')->group(function () {
+        Route::get('/inspector/{project_id}', 'getInspectorByProject');
+    });
 });
+
+//Route::group(function (){
+    Route::controller(\App\Http\Controllers\API\Company\ProjectController::class)->prefix('company')->group(function () {
+        Route::get('/allProjects', 'index');
+        Route::get('/project/{id}', 'show');
+        Route::get('/paidProjects', 'paidProjects');
+        Route::get('/{project_id}/comments', 'comments');
+    });
+    Route::controller(\App\Http\Controllers\API\Company\Real_estateController::class)->prefix('company')->group(function () {
+        Route::get('/allRealEstate', 'index');
+    });
+//});
 
 Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
 //notifications

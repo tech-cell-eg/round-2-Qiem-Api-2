@@ -22,10 +22,7 @@ class Inspector extends Model
         'account_balance',
         'outstanding_balance'
     ];
-    public function projects()
-        {
-            return $this->hasMany(Project::class, 'inspector_id');
-        }
+
     /**
      * Get the user that owns the inspector.
      */
@@ -33,8 +30,13 @@ class Inspector extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function reports()
     {
         return $this->hasMany(InspectorReport::class, 'inspector_id','inspector_id');
+    }
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
     }
 }
