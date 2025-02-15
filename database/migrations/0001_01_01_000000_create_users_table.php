@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('phone')->nullable(); // رقم الجوال
             $table->string('city')->nullable(); // المدينة
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('mobile_number');
             $table->string('street');
             $table->string('district');
             $table->string('password');
