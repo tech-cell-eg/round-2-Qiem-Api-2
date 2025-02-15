@@ -68,6 +68,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Real_estate::class);
     }
+    public function teamMember()
+    {
+        return $this->hasOne(TeamMember::class, 'user_id');
+    }
 
 }
 

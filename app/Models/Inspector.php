@@ -20,7 +20,6 @@ class Inspector extends Model
         'account_balance',
         'outstanding_balance',
     ];
-
     /**
      * Get the user that owns the inspector.
      */
