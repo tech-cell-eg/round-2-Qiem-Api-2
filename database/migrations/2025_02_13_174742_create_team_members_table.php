@@ -11,13 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('team_members', function (Blueprint $table) {
-            $table->id();
-            $table->enum('role', ['Inspector', 'Reviewer']);
-            $table->foreignId('inspector_id')->nullable()->constrained('inspectors')->onDelete('cascade');
-            $table->foreignId('reviewer_id')->nullable()->constrained('reviewers')->onDelete('cascade');
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('team_members')) {
+            Schema::create('team_members', function (Blueprint $table) {
+                $table->id();
+                $table->enum('role', ['Inspector', 'Reviewer']);
+                
+                // Assuming 'inspector_id' is the primary key in 'inspectors'
+                $table->foreignId('inspector_id')->nullable()->constrained('inspectors', 'inspector_id')->onDelete('cascade');
+                
+                // If 'reviewers' uses 'id' as the primary key, update the foreign key
+                $table->foreignId('reviewer_id')->nullable()->constrained('reviewers', 'reviewer_id')->onDelete('cascade');
+                
+                $table->timestamps();
+            });
+        }
     }
 
     /**
