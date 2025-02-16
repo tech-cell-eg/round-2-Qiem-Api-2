@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\InspectorReport;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Inspector extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'inspector_id';
+    public $incrementing = false;
 
     protected $fillable = [
         'user_id',
@@ -16,12 +19,24 @@ class Inspector extends Model
         'certificate',
         'province',
         'area',
+        'account_balance',
+        'outstanding_balance'
     ];
+
     /**
      * Get the user that owns the inspector.
      */
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(InspectorReport::class, 'inspector_id','inspector_id');
+    }
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
     }
 }

@@ -22,8 +22,13 @@ class Real_estate extends Model
         'review_file',
     ];
 
-    public function client(){
-        return $this->belongsTo(User::class);
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'client_id');
     }
 
     public function payments(){
@@ -33,5 +38,13 @@ class Real_estate extends Model
     public function reviewers()
     {
         return $this->belongsTo(Reviewer::class, 'reviewer_id', 'reviewer_id');
+    }
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'client_id');
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API\Inspector;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\SendNotificationRequest;
 use App\Models\User;
-use App\Notifications\customNotification;
-use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
+use App\Notifications\customNotification;
+use App\Http\Requests\SendNotificationRequest;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
@@ -15,9 +14,11 @@ class NotificationController extends Controller
     use ApiResponseTrait;
     //to send notification
     public function send(SendNotificationRequest $request){
+        if (!Auth::check()) {
+            return $this->errorResponse('User not authenticated', 401);
+        }
         // Find the user by ID
         $user = User::find(Auth::user()->id);
-
 
         if (!$user) {
             return $this->errorResponse('User not found', 404);
@@ -32,9 +33,7 @@ class NotificationController extends Controller
     //to get all notification
     public function index(Request $request)
     {
-
         $user = User::find(Auth::user()->id);
-
         if (!$user) {
             return $this->errorResponse('User not found',404);
         }
@@ -61,9 +60,10 @@ class NotificationController extends Controller
 
     //mark as read
     public function markAsRead(Request $request){
-
+        if (!Auth::check()) {
+            return $this->errorResponse('User not authenticated', 401);
+        }
         $user = User::find(Auth::user()->id);
-
         if (!$user) {
             return $this->errorResponse('User not found', 404);
         }

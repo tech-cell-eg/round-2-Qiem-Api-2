@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,11 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviewers', function (Blueprint $table) {
+            // Assuming 'id' column exists in 'users' table
             $table->foreignId('reviewer_id')->references('id')->on('users')->cascadeOnDelete();
             $table->primary('reviewer_id');
+            
             $table->string('experience');
             $table->string('bio');
-            $table->foreignId('evaluation_company_id')->references('company_id')->on('companies')->onDelete('cascade');
+            
+            // Assuming 'company_id' exists in 'companies' table
+            $table->foreignId('evaluation_company_id')
+                  ->references('company_id') // Reference 'company_id' from 'companies' table
+                  ->on('companies')
+                  ->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\CompanyClient;
+use App\Models\IndividualClient;
+use App\Models\EvaluationCompany;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-
-    use HasFactory,Notifiable,HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens;
     use HasRoles;
 
     protected $fillable = [
@@ -20,11 +22,13 @@ class User extends Authenticatable
         'phone',
         'password',
         'city',
-        'mobile_number',
         'street',
         'district',
         'city',
         'role',
+        'whatsapp_link',
+        'comments',
+        'sms_number',
     ];
 
     /**
@@ -40,33 +44,37 @@ class User extends Authenticatable
      */
     public function companyClient()
     {
-        return $this->hasOne(CompanyClient::class);
+        return $this->hasOne(CompanyClient::class, 'user_id');
     }
 
     /**
      * Get the inspector associated with the user.
      */
+    public function inspector()
+    {
+        return $this->hasOne(Inspector::class, 'inspector_id');
+    }
 
     /**
      * Get the evaluation company associated with the user.
      */
     public function evaluationCompany()
     {
-        return $this->hasOne(EvaluationCompany::class);
-    }
-    public function inspector()
-    {
-        return $this->hasOne(Inspector::class, 'user_id');
+        return $this->hasOne(EvaluationCompany::class, 'user_id');
     }
 
     public function realEstates()
     {
         return $this->hasMany(Real_estate::class);
     }
+
     public function teamMember()
     {
         return $this->hasOne(TeamMember::class, 'user_id');
     }
 
+    public function project()
+    {
+        return $this->hasMany(Project::class);
+    }
 }
-
