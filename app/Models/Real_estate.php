@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Real_estate extends Model
 {
+    protected $table = 'real_estates';
     protected $fillable = [
         'type',
         'street',
@@ -15,7 +16,10 @@ class Real_estate extends Model
         'region',
         'advantages',
         'more_details',
-        'client_id'
+        'client_id',
+        'reviewer_id',
+        'review_notes',
+        'review_file',
     ];
 
     public function client(){
@@ -24,5 +28,10 @@ class Real_estate extends Model
 
     public function payments(){
         return $this->hasMany(Payment::class);
+    }
+
+    public function reviewers()
+    {
+        return $this->belongsTo(Reviewer::class, 'reviewer_id', 'reviewer_id');
     }
 }

@@ -1,17 +1,19 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\Api\Authentication\IndividualClient\RegisterController;
-use App\Http\Controllers\Api\Authentication\EvaluationCompany\EvaluationCompanyRegisterController;
-use App\Http\Controllers\Api\Authentication\Inspector\InspectorRegisterController;
-use App\Http\Controllers\Api\Authentication\EditProfile\EditProfileController;
+use App\Http\Controllers\API\Authentication\IndividualClient\RegisterController;
+use App\Http\Controllers\API\Authentication\EvaluationCompany\EvaluationCompanyRegisterController;
+use App\Http\Controllers\API\Authentication\Inspector\InspectorRegisterController;
+use App\Http\Controllers\API\Authentication\EditProfile\EditProfileController;
 use App\Http\Controllers\API\Inspector\InspectorController;
 use App\Http\Controllers\API\Inspector\NotificationController;
-use App\Http\Controllers\API\RealEstateController;
 use App\Http\Controllers\TermsAndConditionsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeamMember\TeamMemberController;
+use App\Http\Controllers\API\Reviewer\RealEstateController;
+use App\Http\Controllers\API\Reviewer\ReviewerReportController;
+use App\Http\Controllers\API\Reviewer\RealEstateReviewController;
 
 Route::get('/terms-and-conditions', [TermsAndConditionsController::class, 'show'])->name('terms-and-conditions.show');
 
@@ -77,3 +79,20 @@ Route::middleware(['auth:sanctum', 'role:client'])->group(function () {
 //////Show team members
 Route::post('/team-members', [TeamMemberController::class, 'store']);
 Route::get('/team-members', [TeamMemberController::class, 'index']);
+
+
+////// Reviewer
+/////Show all properties///
+Route::get('/properties', [RealEstateController::class, 'index']);
+
+/// Retrieve details of a real estate property by its Id
+Route::get('/properties/{id}', [RealEstateController::class, 'show']);
+
+//Show reports
+Route::get('/reviewer/reports', [ReviewerReportController::class, 'index']);
+// Show single report
+ Route::get('/reviewer/reports/{id}', [ReviewerReportController::class, 'show']);
+// Accept/Reject a report
+    Route::put('/reviewer/reports/{id}/review', [ReviewerReportController::class, 'review']);
+//Send Notes
+Route::post('/real-estates/{id}/review', [RealEstateReviewController::class, 'store']);

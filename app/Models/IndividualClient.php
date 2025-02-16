@@ -10,6 +10,7 @@ class IndividualClient extends Model
 {
 
     use HasFactory;
+    protected $table = 'individual_client';
 
     protected $fillable = [
         'user_id',

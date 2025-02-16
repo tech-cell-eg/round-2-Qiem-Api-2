@@ -25,9 +25,12 @@ class IndividualClientRegisterRequest extends FormRequest
             'name'                  => 'required|string|max:255',
             'email'                 => 'required|email|unique:users,email',
             'phone'                 => 'required|string|unique:users,phone',
+            'mobile_number'         => 'required', 'string', 'unique:users,mobile_number',
             'password'              => 'required|string|min:6|confirmed',
             'password_confirmation' => 'required|string|min:6',
             'city'                  => 'required|string|max:255',
+            'street'                => 'required|string|max:255',
+            'district'              => 'required|string|max:255',
         ];
     }
     public function messages()

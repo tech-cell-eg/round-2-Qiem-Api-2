@@ -4,7 +4,7 @@ namespace App\Http\Controllers\TeamMember;
 use App\Http\Requests\StoreTeamMemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Controllers\TeamMember;
+use App\Models\TeamMember;
 use Illuminate\Http\JsonResponse;
 
 class TeamMemberController extends Controller
